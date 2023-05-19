@@ -38,18 +38,25 @@ namespace tutorial {
 /**
  * \brief 2D pose Vertex, (x,y,theta)
  */
+
+// class that represents a robot pose
+// derived from BaseVertex<>
+// internal type has dimension 3, _estimate is of type SE2
 class G2O_TUTORIAL_SLAM2D_API VertexSE2 : public BaseVertex<3, SE2> {
  public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
   VertexSE2();
 
+  // reset estimate to known configuration: (0, 0, 0 deg)
   virtual void setToOriginImpl() { _estimate = SE2(); }
 
+  // apply increment of parameterization (dx, dy, dtheta) to estimate (type: SE2)
   virtual void oplusImpl(const double* update) {
     SE2 up(update[0], update[1], update[2]);
     _estimate *= up;
   }
 
+  // read & write functions
   virtual bool read(std::istream& is);
   virtual bool write(std::ostream& os) const;
 };

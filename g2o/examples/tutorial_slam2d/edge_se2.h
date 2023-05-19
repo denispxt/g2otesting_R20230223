@@ -38,12 +38,18 @@ namespace tutorial {
 /**
  * \brief 2D edge between two Vertex2, i.e., the odometry
  */
+
+// class that represents an edge connecting 2 VertexSE2 (an odometry edge)
+// derived from BaseBinaryEdge<>
+// _measurement has dimension 3, and is of type SE2, connects VertexSE2, to VertexSE2
 class G2O_TUTORIAL_SLAM2D_API EdgeSE2
     : public BaseBinaryEdge<3, SE2, VertexSE2, VertexSE2> {
  public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
   EdgeSE2();
 
+  // error function
+  // error vector saved in _error of type Vector3d
   void computeError() {
     const VertexSE2* v1 = static_cast<const VertexSE2*>(_vertices[0]);
     const VertexSE2* v2 = static_cast<const VertexSE2*>(_vertices[1]);
@@ -57,6 +63,7 @@ class G2O_TUTORIAL_SLAM2D_API EdgeSE2
     _inverseMeasurement = m.inverse();
   }
 
+  // read and write functions
   virtual bool read(std::istream& is);
   virtual bool write(std::ostream& os) const;
 

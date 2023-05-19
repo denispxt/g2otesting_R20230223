@@ -40,14 +40,20 @@ namespace tutorial {
 class ParameterSE2Offset;
 class CacheSE2Offset;
 
+// class that represents an edge connecting a VertexSE2 to a VertexPointXY (a landmark measurment)
+// derived from BaseBinaryEdge<>
+// _measurement has dimension 2, and is of type Vector2d, connects VertexSE2, to VertexPointXY
 class G2O_TUTORIAL_SLAM2D_API EdgeSE2PointXY
     : public BaseBinaryEdge<2, Eigen::Vector2d, VertexSE2, VertexPointXY> {
  public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
   EdgeSE2PointXY();
 
+  // error function
+  // error vector saved in _error of type Vector2d
   void computeError();
 
+  // read and write functions
   virtual bool read(std::istream& is);
   virtual bool write(std::ostream& os) const;
 

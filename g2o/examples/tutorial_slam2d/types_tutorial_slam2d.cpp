@@ -36,6 +36,7 @@ namespace tutorial {
 
 G2O_REGISTER_TYPE_GROUP(tutorial_slam2d);
 
+// register new types
 G2O_REGISTER_TYPE(TUTORIAL_VERTEX_SE2, VertexSE2);
 G2O_REGISTER_TYPE(TUTORIAL_VERTEX_POINT_XY, VertexPointXY);
 

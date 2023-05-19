@@ -36,19 +36,25 @@
 namespace g2o {
 namespace tutorial {
 
+// class that represents a point landmark in the plane
+// derived from BaseVertex<>
+// internal type has dimension 2, _estimate is of type Vector2d
 class G2O_TUTORIAL_SLAM2D_API VertexPointXY
     : public BaseVertex<2, Eigen::Vector2d> {
  public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
   VertexPointXY();
 
+  // reset estimate to known configuration: (0, 0)
   virtual void setToOriginImpl() { _estimate.setZero(); }
 
+  // apply increment of parameterization (dx, dy) to estimate (type: Vector2d)
   virtual void oplusImpl(const double* update) {
     _estimate[0] += update[0];
     _estimate[1] += update[1];
   }
 
+  // read & write functions
   virtual bool read(std::istream& is);
   virtual bool write(std::ostream& os) const;
 };
